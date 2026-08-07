@@ -9,7 +9,7 @@ For each offensive skill position (QB, RB, TE, WR), this project:
 1. Pulls historical player-season stats and biographical data via [`nflreadpy`](https://github.com/nflverse/nflreadpy).
 2. Engineers position-specific features (efficiency ratios, age, years of experience, draft capital, year-over-year trends, etc.).
 3. Pairs each player's season stats with their **following** season's fantasy output, turning the problem into a supervised "predict next year from this year" regression task.
-4. Builds a stacked ensemble — Linear Regression, SGD Regression, KNN, and Gradient Boosting — whose out-of-fold predictions are fed as additional features into two neural network architectures (a simple feed-forward network and a wide & deep network).
+4. Builds a stacked ensemble: Linear Regression, SGD Regression, KNN, and Gradient Boosting.  Whose out-of-fold predictions are fed as additional features into two neural network architectures (a simple feed-forward network and a wide & deep network).
 5. Evaluates both networks on validation data using RMSE and Spearman rank correlation, and blends their predictions for the final output.
 6. Applies the trained pipeline to the most recent season's stats to produce **rankings for the upcoming season**, adjusted for positional scarcity (Value Over Replacement Player) so QBs, RBs, TEs, and WRs can be compared on a single draft board.
 
@@ -60,13 +60,13 @@ uv sync
 
 ## Usage
 
-The entire pipeline — pulling data via `nflreadpy`, feature engineering, model training, evaluation, and ranking generation — runs from `model_building.ipynb`. Open it with Jupyter to step through or re-run the analysis:
+The entire pipeline, pulling data via `nflreadpy`, feature engineering, model training, evaluation, and ranking generation runs from `model_building.ipynb`. Open it with Jupyter to step through or re-run the analysis:
 ```bash
 uv run jupyter notebook model_building.ipynb
 ```
 
 ## Notes & Limitations
 
-- Predictions rely entirely on the prior season's box-score stats and biographical/draft data — they don't account for offseason changes like team context, coaching changes, depth chart battles, or injuries that happen after the most recent season's data was collected.
+- Predictions rely entirely on the prior season's box-score stats and biographical/draft data, they don't account for offseason changes like team context, coaching changes, depth chart battles, or injuries that happen after the most recent season's data was collected.
 - Rookies and players with no prior-season stats in the dataset can't be ranked with this pipeline, since it requires a full season of historical stats as input.
 - Rankings should be treated as one data point among many for draft prep, not a substitute for up-to-date news, ADP, or beat-writer analysis closer to the season.
